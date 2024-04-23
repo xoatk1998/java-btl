@@ -20,7 +20,7 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN', 'OPERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     public String saveUser(final @RequestBody CreateOrderRequest request) {
         return orderService.createOrder(request);
     }

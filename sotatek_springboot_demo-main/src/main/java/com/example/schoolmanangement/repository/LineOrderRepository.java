@@ -10,9 +10,9 @@ import org.springframework.stereotype.Repository;
 public interface LineOrderRepository extends JpaRepository<LineOrder, Long> {
 
     @Query("""
-            SELECT lo.customerId
-            FROM Order o JOIN LineOrder lo ON o.id = lo.orderId
-            GROUP BY lo.customerId
+            SELECT o.customerId
+            FROM Order o
+            GROUP BY o.customerId
             ORDER BY SUM(o.totalMoney) DESC LIMIT 1
             """)
     Long findGoldCustomer();

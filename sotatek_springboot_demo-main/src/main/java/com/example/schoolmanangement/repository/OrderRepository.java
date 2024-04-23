@@ -14,7 +14,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("""
             SELECT SUM(o.totalMoney) FROM Order o
-            WHERE o.issueDate BETWEEN :from AND :to
+            WHERE (:from is null OR o.issueDate >= :from )
+            AND (:to is null OR o.issueDate <= :to)
             """)
     BigDecimal findRevenue(Instant from, Instant to);
 }

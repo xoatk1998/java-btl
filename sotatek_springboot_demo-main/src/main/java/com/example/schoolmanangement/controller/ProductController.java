@@ -37,7 +37,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN', 'OPERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     public String addProduct(final @RequestBody CreateProductRequest request) {
         return productService.addNewProduct(request);
     }
@@ -59,7 +59,8 @@ public class ProductController {
     }
 
     @GetMapping("/revenue")
-    public BigDecimal getRevenue(@RequestParam Instant from, @RequestParam Instant to){
+    public BigDecimal getRevenue(@RequestParam(required = false) Instant from,
+                                 @RequestParam(required = false) Instant to){
         return productService.findRevenue(from, to);
     }
 

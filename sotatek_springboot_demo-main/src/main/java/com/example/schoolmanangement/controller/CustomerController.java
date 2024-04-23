@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ADMIN', 'OPERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OPERATOR')")
     public String saveUser(final @RequestBody CreateCustomerRequest user) {
         return customerService.createCustomer(user);
     }

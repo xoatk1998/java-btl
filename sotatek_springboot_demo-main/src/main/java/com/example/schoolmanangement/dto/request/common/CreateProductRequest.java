@@ -12,4 +12,5 @@ import java.math.BigDecimal;
 public class CreateProductRequest {
     private String name;
     private BigDecimal price;
+    private Long quantity;
 }

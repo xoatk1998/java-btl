@@ -36,7 +36,6 @@ public class UserController {
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
     public String saveUser(final @Valid @RequestBody CreateUserRequest user) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.addNewUser(user);
     }
 

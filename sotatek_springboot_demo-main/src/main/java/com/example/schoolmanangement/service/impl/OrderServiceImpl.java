@@ -9,6 +9,7 @@ import com.example.schoolmanangement.repository.*;
 import com.example.schoolmanangement.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     private final ProductRepository productRepository;
 
     @Override
+    @Transactional
     public String createOrder(CreateOrderRequest request) {
         if(!customerRepository.existsById(request.getCustomerId()))
             throw new ApiException(new BaseErrorResponse(106, "Customer does not exist"));
@@ -48,9 +50,6 @@ public class OrderServiceImpl implements OrderService {
         Map<Long, Product> mapProductId = products.stream()
                 .collect(Collectors.toMap(Product::getId, p -> p));
 
-        List<Order> orders = new ArrayList<>();
-        List<LineOrder> lineOrders = new ArrayList<>();
-        List<Inventory> inventoriesUpdated = new ArrayList<>();
         for (ProductInOrder productInOrder : request.getProductsOrder()){
             if(mapProductIdToQuantity.containsKey(productInOrder.getProductId())){
                 if(mapProductIdToQuantity.get(productInOrder.getProductId()).getStockQuantity() > productInOrder.getQuantity()){
@@ -59,25 +58,26 @@ public class OrderServiceImpl implements OrderService {
                             .issueDate(Instant.now())
                             .totalMoney(mapProductId.get(productInOrder.getProductId()).getPrice().multiply(BigDecimal.valueOf(productInOrder.getQuantity())))
                             .build();
+                    orderRepository.save(order);
+
                     LineOrder lineOrder = LineOrder.builder()
                             .orderId(order.getId())
                             .customerId(request.getCustomerId())
                             .productId(productInOrder.getProductId())
                             .quantity(productInOrder.getQuantity())
                             .build();
+                    lineOrderRepository.save(lineOrder);
+
                     Inventory inventory = mapProductIdToQuantity.get(productInOrder.getProductId());
                     inventory.setStockQuantity(inventory.getStockQuantity() - productInOrder.getQuantity());
                     inventory.setUpdatedDate(Instant.now());
-                    orders.add(order);
-                    lineOrders.add(lineOrder);
-                    inventoriesUpdated.add(inventory);
+                    inventoryRepository.save(inventory);
+                } else {
+                    throw new ApiException(new BaseErrorResponse(1001, "Out of stock quantity"));
                 }
             }
         }
 
-        orderRepository.saveAll(orders);
-        lineOrderRepository.saveAll(lineOrders);
-        inventoryRepository.saveAll(inventoriesUpdated);
         return "Create orders successful";
     }
 }

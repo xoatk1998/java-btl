@@ -33,9 +33,15 @@ public class ProductServiceImpl implements ProductService {
     private final CustomerRepository customerRepository;
     @Override
     public String addNewProduct(CreateProductRequest request) {
-        productRepository.save(Product.builder()
+        Product product = productRepository.save(Product.builder()
                         .name(request.getName())
                         .price(request.getPrice())
+                .build());
+
+        inventoryRepository.save(Inventory.builder()
+                        .productId(product.getId())
+                        .updatedDate(Instant.now())
+                        .stockQuantity(request.getQuantity())
                 .build());
         return "Create successful";
     }
