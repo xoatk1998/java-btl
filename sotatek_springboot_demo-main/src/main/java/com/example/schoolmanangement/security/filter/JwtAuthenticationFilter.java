@@ -63,9 +63,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             authentication = this.getAuthenticationByJwt(jwtToken, this.publicKey);
             Optional<String> logoutToken = redisService.getLogoutTokens((String) authentication.getPrincipal());
-            if(logoutToken.isPresent() && jwtToken.equals(logoutToken.get())){
-                throw new ApiException(new BaseErrorResponse(1000, "User is already logout"));
-            }
+           if(logoutToken.isPresent() && jwtToken.equals(logoutToken.get())){
+               throw new ApiException(new BaseErrorResponse(1000, "User is already logout"));
+           }
         } catch (InvalidJwtError error) {
             SecurityContextHolder.clearContext();
             this.authenticationEntryPoint.commence(request, response, new InvalidJwtError());

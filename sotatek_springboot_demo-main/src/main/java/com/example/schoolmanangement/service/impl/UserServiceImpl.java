@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new ApiException(new BaseErrorResponse(106, "Wrong username")));
 
-        if (!BCryptUtil.matches(request.getPassword(), request.getPassword())) {
+        if (!BCryptUtil.matches(request.getPassword(), user.getPassword())) {
             throw new ApiException(new BaseErrorResponse(105, "Wrong password"));
         }
 

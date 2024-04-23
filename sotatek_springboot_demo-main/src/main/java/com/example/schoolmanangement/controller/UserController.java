@@ -8,6 +8,7 @@ import com.example.schoolmanangement.entity.User;
 import java.util.List;
 
 import com.example.schoolmanangement.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -34,7 +35,7 @@ public class UserController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN')")
-    public String saveUser(final @RequestBody CreateUserRequest user) {
+    public String saveUser(final @Valid @RequestBody CreateUserRequest user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return userService.addNewUser(user);
     }

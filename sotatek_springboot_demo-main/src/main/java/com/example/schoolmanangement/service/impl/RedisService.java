@@ -48,7 +48,7 @@ public class RedisService {
 
     public Optional<String> getLogoutTokens(final String username) {
         log.info("Get logout access tokens");
-        String accessToken = this.redisTemplate.opsForValue().get(REDIS_STUDENT_PREFIX + username);
+        String accessToken = this.redisTemplate.opsForValue().get(REDIS_LOGOUT_PREFIX + username);
         return Optional.ofNullable(accessToken);
     }
 }
