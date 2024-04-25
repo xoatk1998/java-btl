@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> findProduct(String name, BigDecimal price, Sort.Direction direction) {
         Sort sort = Sort.by(direction, "price");
-        return productRepository.findProduct(name, price, sort);
+        return productRepository.findProductByPriceAndName(price, name, sort);
     }
 
     @Override
@@ -70,11 +70,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String updatePrice(Long id, BigDecimal price) {
-        Product product = productRepository.findById(id).orElseThrow();
-        product.setPrice(price);
-        productRepository.save(product);
-        return "Update successful";
+    public String updateQuantity(Long id, Long quantity) {
+    Inventory inventory = inventoryRepository.findByProductId(id).orElseThrow(() -> new ApiException(new BaseErrorResponse(107, "Product is not existed")));;
+        inventory.setStockQuantity(quantity);
+        inventoryRepository.save(inventory);
+        return "Update quantity successful";
     }
 
     @Override

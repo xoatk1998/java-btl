@@ -42,15 +42,15 @@ public class ProductController {
         return productService.addNewProduct(request);
     }
 
-    @PostMapping("/{id}/update")
+    @PutMapping("/{id}/update")
     public String updateProduct(@PathVariable Long id, final @RequestBody CreateProductRequest request) {
         return productService.updateProduct(id, request);
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}/update-quantity")
     @PreAuthorize("hasRole('ADMIN')")
-    public String updateQuantity(@PathVariable Long id, final @RequestParam BigDecimal price) {
-        return productService.updatePrice(id, price);
+    public String updateQuantity(@PathVariable Long id, final @RequestParam Long quantity) {
+        return productService.updateQuantity(id, quantity);
     }
 
     @GetMapping("/report")
@@ -64,7 +64,7 @@ public class ProductController {
         return productService.findRevenue(from, to);
     }
 
-    @GetMapping("/customer")
+    @GetMapping("/golden-customer")
     public Customer findCustomer(){
         return productService.findGoldCustomer();
     }

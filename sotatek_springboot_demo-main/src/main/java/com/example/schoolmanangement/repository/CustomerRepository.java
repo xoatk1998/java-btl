@@ -16,8 +16,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query("""
             SELECT c FROM Customer c
             WHERE ( :phone IS NULL OR c.phone LIKE CONCAT('%',:phone, '%') )
-            AND ( :name IS NULL OR c.phone LIKE CONCAT('%',:name, '%') )
-            AND ( :address IS NULL OR c.phone LIKE CONCAT('%',:address, '%') )
+            AND ( :name IS NULL OR c.name LIKE CONCAT('%',:name, '%') )
+            AND ( :address IS NULL OR c.address LIKE CONCAT('%',:address, '%') )
             """)
     List<Customer> findCustomer(String phone, String name, String address);
 }

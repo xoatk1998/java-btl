@@ -1,31 +1,19 @@
-create database school_management;
-use school_management;
 
-drop table if exists class;
-CREATE TABLE class (
-                       id int primary key auto_increment,
-                       name varchar(255) unique
+create database store_management;
+use store_management;
+
+drop table if exists user;
+CREATE TABLE user (
+  id int primary key auto_increment,
+  email varchar(255),
+  name varchar(255),
+  password varchar(255),
+  phone varchar(255),
+  role varchar(255),
+  username varchar(255),
 );
 
-drop table if exists student;
-CREATE TABLE student (
-                         id int primary key auto_increment,
-                         name varchar(255),
-                         age int,
-                         is_male boolean,
-                         class_id int
+insert into user(id, email, name, password, phone, role, username) values('1', 'admin@gmail.com', 'admin', '$2a$10$62I9/dZHBuoj6vbq2EDtuOG.BF62ANPnyTxkOIm6DphlO2hKyS9G2', '0978776056', 'ADMIN', 'admin'
 );
-
-drop table if exists teacher;
-CREATE TABLE teacher (
-                         id int primary key auto_increment,
-                         name varchar(255),
-                         age int,
-                         address nvarchar(1000),
-                         is_male boolean
-);
-
--- alter table student drop constraint student_class_fk_1;
-alter table student add constraint student_class_fk_1 FOREIGN KEY (class_id) REFERENCES class(id)
 
 

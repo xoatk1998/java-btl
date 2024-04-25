@@ -7,6 +7,7 @@ import com.example.schoolmanangement.entity.Product;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -21,8 +22,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                 p.price AS price,
                 i.stockQuantity
             ) FROM Product p JOIN Inventory i ON p.id = i.productId
+             WHERE ( :price IS NULL OR p.price = :price )
+             AND (:name IS NULL OR p.name = :name)
             """)
-    List<ProductResponse> findProduct(String name, BigDecimal price, Sort sort);
+    List<ProductResponse> findProductByPriceAndName( BigDecimal price, String name, Sort sort);
 
     @Query("""
             SELECT p FROM Product p
@@ -36,7 +39,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                 p.price AS price,
                 i.stockQuantity
             ) FROM Product p JOIN Inventory i ON p.id = i.productId
-            WHERE i.stockQuantity >= 3
+            WHERE i.stockQuantity <= 3
             """)
     List<ProductResponse> findProductReport();
 }

@@ -1,0 +1,347 @@
+{
+	"info": {
+		"_postman_id": "2e267feb-4d46-4829-b989-264b4aa4187f",
+		"name": "cache",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "22637002"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// pm.collectionVariables.set(\"token\", pm.response.data);",
+							"// console.log(pm.collectionVariables.get(\"SESSION_ID\"), \"---sesion\")"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\" : \"123123\"\r\n}\r\n\r\n// {\r\n//     \"username\": \"operator001\",\r\n//     \"password\" : \"123123\"\r\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/user/login"
+			},
+			"response": []
+		},
+		{
+			"name": "add users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"operator001\",\r\n    \"password\" : \"123123\",\r\n     \"phone\": \"0978776064\",\r\n     \"name\": \"operator001\",\r\n     \"email\": \"operator001@gmail.com\",\r\n     \"role\": \"OPERATOR\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/user/add"
+			},
+			"response": []
+		},
+		{
+			"name": "add customer",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"customer4\",\r\n    \"password\" : \"123123\",\r\n     \"phone\": \"0978776064\",\r\n     \"name\": \"operator2\",\r\n     \"email\": \"operator2@gmail.com\",\r\n     \"role\": \"OPERATOR\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/customer/add"
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"ea1b44f4-f4cd-4313-b887-0ce07c87af0b\",\r\n    \"username\": \"green lattern\",\r\n    \"password\": \"123123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/users"
+			},
+			"response": []
+		},
+		{
+			"name": "del user",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{host}}/api/v1/customer/3"
+			},
+			"response": []
+		},
+		{
+			"name": "users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/users?id=7e83e0f4-b9b9-4714-9c96-0bba8c9c30e6",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "7e83e0f4-b9b9-4714-9c96-0bba8c9c30e6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/users/all"
+			},
+			"response": []
+		},
+		{
+			"name": "create order",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"customer4\",\r\n    \"password\" : \"123123\",\r\n     \"phone\": \"0978776064\",\r\n     \"name\": \"operator2\",\r\n     \"email\": \"operator2@gmail.com\",\r\n     \"role\": \"OPERATOR\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/customer/add"
+			},
+			"response": []
+		},
+		{
+			"name": "add product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"operator001\",\r\n    \"password\" : \"123123\",\r\n     \"phone\": \"0978776064\",\r\n     \"name\": \"operator001\",\r\n     \"email\": \"operator001@gmail.com\",\r\n     \"role\": \"OPERATOR\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/user/add"
+			},
+			"response": []
+		},
+		{
+			"name": "get product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"operator001\",\r\n    \"password\" : \"123123\",\r\n     \"phone\": \"0978776064\",\r\n     \"name\": \"operator001\",\r\n     \"email\": \"operator001@gmail.com\",\r\n     \"role\": \"OPERATOR\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/user/add"
+			},
+			"response": []
+		},
+		{
+			"name": "update product",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"price\": 101\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{host}}/api/v1/product/1/update"
+			},
+			"response": []
+		},
+		{
+			"name": "update product quantity",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// {\r\n//     \"quantity\": 70\r\n// }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/v1/product/1/update-quantity?quantity=1006",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"product",
+						"1",
+						"update-quantity"
+					],
+					"query": [
+						{
+							"key": "quantity",
+							"value": "1006"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get report product",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/api/v1/product/report"
+			},
+			"response": []
+		},
+		{
+			"name": "get report product Copy",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "{{token}}"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/api/v1/product/report"
+			},
+			"response": []
+		},
+		{
+			"name": "get revenue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{host}}/api/v1/product/revenue"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJBRE1JTiIsInN1YiI6InN0dWRlbnRfYWNjZXNzX3Rva2VuIiwiaXNzIjoic3RvcmVtYW5hZ2VtZW50IiwiaWF0IjoxNzE0MDI1MjE1LCJleHAiOjE3MTQwMzI0MTV9.E5P5c0RCWalMm8Mxzi3_flVD8_FXLJFTEytmZySsvkHzSX_dfQPTMPWq1vk4vAoD0lXITcBE46Sgct45r0zOhTHWk7gH_KorsQiA439yTvnyeK9R7J2PWNSPjnTawnEhaqEzSR9lc75UnEezPGlDsrpf7s4g1Ymm0aZhe0BJJQ57XqTYCDAd9ciYreaPb-08k_bo0RKGloHSaGXbvZJ6ABQjg849a_P6T35d8LcZtdBHmGrvPPX7sw0XZehoFok93GeaNbvhuPH1DqJLYuvxQmQvrlMlhsghDA1us5rrvNgN2YROsN7h354GhbrXI8WM0MNOt-RCN2hwOeb-82im7g",
+			"type": "string"
+		}
+	]
+}

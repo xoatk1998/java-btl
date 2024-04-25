@@ -18,7 +18,7 @@ public interface ProductService {
 
     String deleteProduct(Long id);
 
-    String updatePrice(Long id, BigDecimal price);
+    String updateQuantity(Long id, Long quantity);
 
     List<ProductResponse> reportProduct();
 
